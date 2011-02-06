@@ -64,20 +64,20 @@ sub validate_file_name {
     }
 
 
-    unlike($filename, qr/^\-/, "filename does not start with -");
+    unlike($filename, qr/^\-/, "filename '$filename' does not start with -");
 
     my($before, $after) = split /\./, $filename;
     cmp_ok(length $before, '<=', 39,
-	   "filename has 39 or fewer characters before the dot");
+	   "filename '$filename' has 39 or fewer characters before the dot");
     if ($after) {
 	cmp_ok(length $after, '<=', 39,
-	       "filename has 39 or fewer characters after the dot");
+	       "filename '$filename' has 39 or fewer characters after the dot");
     }
 
     unlike($filename, qr/^(?:CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])\./i,
-	   "filename has a reserved name");
+	   "filename '$filename' has a reserved name");
 
-    unlike($filename, qr/\s|\(|\&/, "filename has a reserved character");
+    unlike($filename, qr/\s|\(|\&/, "filename '$filename' has a reserved character");
 }
 
 # EOF
