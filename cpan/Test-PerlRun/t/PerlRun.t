@@ -103,4 +103,25 @@ if (defined $Config{sig_name}) {
     }
 }
 
+( $stdout, $stderr, $status, $signal )
+    = perlrun({ stdin => qq{start \$\$ "\nend '\n},
+		code => q{print scalar <STDIN>, qq{middle\n}, scalar <STDIN>}});
+
+is(
+    $stdout, qq{start \$\$ "\nmiddle\nend '\n},
+    'perlrun() feeds to STDIN'
+);
+is(
+    $stderr, "",
+    'No errors'
+);
+is(
+    $status, 0,
+    'Clean exit'
+);
+is(
+    $signal, undef,
+    'No signal'
+);
+
 done_testing();
