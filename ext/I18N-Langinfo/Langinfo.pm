@@ -72,13 +72,9 @@ our @EXPORT_OK = qw(
 	YESSTR
 );
 
-our $VERSION = '0.07_01';
+our $VERSION = '0.07';
 
 XSLoader::load();
-
-sub langinfo(_) {
-    return internal_langinfo(shift);
-}
 
 1;
 __END__
