@@ -7454,7 +7454,9 @@ S_regpiece(pTHX_ RExC_state_t *pRExC_state, I32 *flagp, U32 depth)
     const char * const origparse = RExC_parse;
     I32 min;
     I32 max = REG_INFTY;
+#ifdef RE_TRACK_PATTERN_OFFSETS
     char *parse_start;
+#endif
     const char *maxpos = NULL;
     GET_RE_DEBUG_FLAGS_DECL;
 
@@ -7473,7 +7475,9 @@ S_regpiece(pTHX_ RExC_state_t *pRExC_state, I32 *flagp, U32 depth)
 
     if (op == '{' && regcurly(RExC_parse)) {
 	maxpos = NULL;
+#ifdef RE_TRACK_PATTERN_OFFSETS
         parse_start = RExC_parse; /* MJD */
+#endif
 	next = RExC_parse + 1;
 	while (isDIGIT(*next) || *next == ',') {
 	    if (*next == ',') {
@@ -7569,7 +7573,9 @@ S_regpiece(pTHX_ RExC_state_t *pRExC_state, I32 *flagp, U32 depth)
       vFAIL("Regexp *+ operand could be empty");
 #endif
 
+#ifdef RE_TRACK_PATTERN_OFFSETS
     parse_start = RExC_parse;
+#endif
     nextchar(pRExC_state);
 
     *flagp = (op != '+') ? (WORST|SPSTART|HASWIDTH) : (WORST|HASWIDTH);
